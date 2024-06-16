@@ -32,4 +32,31 @@ public class TransactionController : Controller
         _context.SaveChanges();
         return RedirectToAction(nameof(Index));
     }
+
+    public async Task<ActionResult> Delete(int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+
+        var transaction = await _context.Transaction.FirstOrDefaultAsync(t => t.Id == id);
+        if(transaction == null)
+        {
+            return NotFound();
+        }
+        return View(transaction);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var transaction = await _context.Transaction.FindAsync(id);
+        if(transaction != null)
+        {
+            _context.Transaction.Remove(transaction);
+        }
+        await _context.SaveChangesAsync();
+        return RedirectToAction("Index");
+    }
 }
