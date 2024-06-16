@@ -1,9 +1,15 @@
+using BudgetMvcApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+builder.Services.AddDbContext<BudgetMvcAppContext>(options => 
+    options.UseSqlite(builder.Configuration.GetConnectionString("BudgetMvcAppContext")));
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
