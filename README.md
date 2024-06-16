@@ -1,3 +1,3 @@
 # BudgetMvcApp
 
-Simple CRUD aplication build using C$ asp.net MVC.
+Simple CRUD application build using C$ asp.net MVC.
