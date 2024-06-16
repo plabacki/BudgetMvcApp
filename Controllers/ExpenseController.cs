@@ -34,10 +34,10 @@ public class ExpenseController : Controller
 
     [HttpPost]
 
-    public IActionResult Create(Expense expense)
+    public async Task<ActionResult> Create(Expense expense)
     {
         _context.Expenses.Add(expense);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return RedirectToAction("Index","Transaction");
     }
 
@@ -47,7 +47,7 @@ public class ExpenseController : Controller
         {
             return NotFound();
         }
-
+        ViewBag.Transaction = _context.Transaction.ToList();
         var expense = await _context.Expenses.FindAsync(id);
         if(expense == null)
         {
@@ -56,10 +56,29 @@ public class ExpenseController : Controller
         return View(expense);
     }
     [HttpPost]
-    public async Task<ActionResult> Edit (Expense expense)
+    public async Task<ActionResult> Edit (int id, Expense expense)
     {
-        _context.Update(expense);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index),nameof(Transaction));
+        if(ModelState.IsValid)
+        {
+            try
+            {
+                _context.Expenses.Update(expense);
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                if(!_context.Expenses.Any(e => e.Id == expense.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index),nameof(Transaction));
+            
+        }
+        return View(expense);
     }
 }

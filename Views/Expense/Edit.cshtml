@@ -1,16 +1,16 @@
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit Expense";
 }
 
 @model BudgetMvcApp.Models.Expense
 
-<h1 class="text-center">Create Expense</h1>
+<h1 class="text-center">Edit Expense</h1>
 
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <input type="hidden" asp-for="Id">
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Name</label>
@@ -35,7 +35,7 @@
                 <span asp-validation-for="TransactionId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary">
+                <input type="submit" value="Edit" class="btn btn-primary">
             </div>
         </form>
     </div>
