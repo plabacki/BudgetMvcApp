@@ -81,4 +81,30 @@ public class ExpenseController : Controller
         }
         return View(expense);
     }
+
+    public async Task<ActionResult> Delete(int? id)
+    {
+        if(id == null )
+        {
+            return NotFound();
+        }
+        var expense = await _context.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+        if(expense == null)
+        {
+            return NotFound();
+        }
+        return View(expense);
+    }
+    [HttpPost]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var expense = await _context.Expenses.FindAsync(id);
+        if(expense != null)
+        {
+            _context.Expenses.Remove(expense);
+        }
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index),nameof(Transaction));
+
+    }
 }
