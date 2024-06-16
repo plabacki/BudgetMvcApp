@@ -38,6 +38,28 @@ public class ExpenseController : Controller
     {
         _context.Expenses.Add(expense);
         _context.SaveChanges();
-        return RedirectToAction("Index","TransactionController");
+        return RedirectToAction("Index","Transaction");
+    }
+
+    public async Task<ActionResult> Edit (int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+
+        var expense = await _context.Expenses.FindAsync(id);
+        if(expense == null)
+        {
+            return NotFound();
+        }
+        return View(expense);
+    }
+    [HttpPost]
+    public async Task<ActionResult> Edit (Expense expense)
+    {
+        _context.Update(expense);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index),nameof(Transaction));
     }
 }
