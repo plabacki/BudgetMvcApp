@@ -2,6 +2,7 @@ using BudgetMvcApp.Controllers;
 using BudgetMvcApp.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BudgetMvcApp.Models;
 
@@ -36,10 +37,14 @@ public class ExpenseController : Controller
 
     public async Task<ActionResult> Create(Expense expense)
     {
-        _context.Expenses.Add(expense);
-        await _context.SaveChangesAsync();
-        return RedirectToAction("Index","Transaction");
-    }
+        if(ModelState.IsValid)
+        {
+            _context.Expenses.Add(expense);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index","Transaction");
+        }
+        return View(expense);
+    }   
 
     public async Task<ActionResult> Edit (int? id)
     {

@@ -29,9 +29,13 @@ public class TransactionController : Controller
     [HttpPost]
     public IActionResult Create(Transaction transaction)
     {
-        _context.Transaction.Add(transaction);
-        _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+        if(ModelState.IsValid)
+        {
+            _context.Transaction.Add(transaction);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(transaction);
     }
 
     public async Task<ActionResult> Edit(int? id)
