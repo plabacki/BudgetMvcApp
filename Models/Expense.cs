@@ -11,5 +11,5 @@ public class Expense
     [DataType(DataType.Date)]
     public DateTime Date {get;set;}
     public int TransactionId {get;set;}
-    public Transaction Transaction {get;set;} =null!;
+    public Transaction? Transaction {get;set;}
 }

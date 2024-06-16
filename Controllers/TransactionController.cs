@@ -1,4 +1,5 @@
 using BudgetMvcApp.Data;
+using BudgetMvcApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,5 +18,18 @@ public class TransactionController : Controller
     {
         var transactions = await _context.Transaction.ToListAsync();
         return View(transactions);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Transaction transaction)
+    {
+        _context.Transaction.Add(transaction);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
     }
 }
