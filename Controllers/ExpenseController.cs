@@ -18,4 +18,19 @@ public class ExpenseController : Controller
         var expenses = await _context.Expenses.Include(t => t.Transaction).ToListAsync();
         return View(expenses);
     }
+
+    public IActionResult Create()
+    {
+        ViewBag.Transaction = _context.Transaction.ToList();
+        return View();
+    }
+
+    [HttpPost]
+
+    public IActionResult Create(Expense expense)
+    {
+        _context.Expenses.Add(expense);
+        _context.SaveChanges();
+        return RedirectToAction(nameof(Index));
+    }
 }
