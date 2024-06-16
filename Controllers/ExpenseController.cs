@@ -1,3 +1,4 @@
+using BudgetMvcApp.Controllers;
 using BudgetMvcApp.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,16 @@ public class ExpenseController : Controller
         _context = context;
     }
 
-    public async Task<ActionResult> Index()
+    public async Task<ActionResult> Index(int? id)
     {
-        var expenses = await _context.Expenses.Include(t => t.Transaction).ToListAsync();
-        return View(expenses);
+        if(id == null)
+        {
+            return NotFound();
+        }
+        
+        var expenses = from e in _context.Expenses select e;
+        expenses = expenses.Where(e=> e.TransactionId == id);
+        return View(await expenses.ToListAsync());
     }
 
     public IActionResult Create()
@@ -31,6 +38,6 @@ public class ExpenseController : Controller
     {
         _context.Expenses.Add(expense);
         _context.SaveChanges();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index","TransactionController");
     }
 }
