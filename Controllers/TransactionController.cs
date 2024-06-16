@@ -1,3 +1,4 @@
+using System.Data;
 using BudgetMvcApp.Data;
 using BudgetMvcApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,45 @@ public class TransactionController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    public async Task<ActionResult> Edit(int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        var transaction = await _context.Transaction.FindAsync(id);
+        if(transaction == null)
+        {
+            return NotFound();
+        }
+        return View(transaction);
+    }
+    [HttpPost]
+    public async Task<ActionResult> Edit(int id, Transaction transaction)
+    {
+        if(ModelState.IsValid)
+        {
+            try
+            {
+                _context.Transaction.Update(transaction);
+                await _context.SaveChangesAsync();
+            } 
+            catch(DBConcurrencyException)
+            {
+                if(!_context.Transaction.Any(t => t.Id == transaction.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index),nameof(Transaction));
+        }
+        return View(transaction);  
+        
+    }
     public async Task<ActionResult> Delete(int? id)
     {
         if(id == null)
