@@ -11,4 +11,12 @@ public class BudgetMvcAppContext : DbContext
 
     public DbSet<Models.Expense> Expenses {get; set;}
     public DbSet<Models.Transaction> Transaction {get;set;}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Transaction>()
+            .HasMany(e => e.Expenses)
+            .WithOne(t => t.Transaction)
+            .HasForeignKey(t => t.TransactionId);
+    }
 }
