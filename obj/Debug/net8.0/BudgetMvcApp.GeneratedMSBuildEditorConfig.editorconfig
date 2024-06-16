@@ -22,6 +22,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZS9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/lindler/Downloads/projects/BudgetMvcApp/Views/Expense/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZS9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/lindler/Downloads/projects/BudgetMvcApp/Views/Expense/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZW5zZS9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
