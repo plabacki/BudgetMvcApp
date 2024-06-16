@@ -23,7 +23,7 @@ public class ExpenseController : Controller
         
         var expenses = from e in _context.Expenses select e;
         expenses = expenses.Where(e=> e.TransactionId == id);
-        return View(await expenses.ToListAsync());
+        return View(await expenses.Include(t => t.Transaction).ToListAsync());
     }
 
     public IActionResult Create()
@@ -88,7 +88,7 @@ public class ExpenseController : Controller
         {
             return NotFound();
         }
-        var expense = await _context.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+        var expense = await _context.Expenses.Include(t=> t.Transaction).FirstOrDefaultAsync(e => e.Id == id);
         if(expense == null)
         {
             return NotFound();

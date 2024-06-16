@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BudgetMvcApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5c443cf53fb56bda08f0e539d5a6edf7cd88dbc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38e139dba9e5a8d11d8b87752d154e134600011a")]
 [assembly: System.Reflection.AssemblyProductAttribute("BudgetMvcApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BudgetMvcApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
